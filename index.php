@@ -33,6 +33,7 @@ $headers = [
 ];
 
 $roll = true;
+$rollsUsed = 0;
 while ($roll) {
     $result = $client->get($baseUrl.$numbers, [
         "query" => $accountData,
@@ -40,12 +41,16 @@ while ($roll) {
     ]);
 
     $response = explode(":", $result->getBody()->getContents());
-    var_dump($response);
+
+    if ($response[0] !== "ffa" && $response[0] !== "aaa") {
+        echo "Winner! " . $response[2] . PHP_EOL;
+    }
 
     $fh = fopen("play_log.txt","a+");
     fwrite($fh, implode(":", $response) . PHP_EOL);
 
     if ($response[0] == "ffa") {
+        echo "Time to pick a chest!" . PHP_EOL;
         $accountData["chest"] = mt_rand(1,3);
         $chestRequest = $client->get($baseUrl.$chestUrl, [
             "query" => $accountData,
@@ -65,4 +70,8 @@ while ($roll) {
     if ( isset($response[1]) && $response[1] == 0) {
        $roll = false;
     }
+
+    $rollsUsed++;
 }
+
+echo sprintf("You spent %d rolls", $rollsUsed) . PHP_EOL;
