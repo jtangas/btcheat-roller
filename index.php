@@ -1,3 +1,4 @@
+#!/usr/bin/php
 <?php
 
 require "vendor/autoload.php";
@@ -52,6 +53,7 @@ while ($roll) {
     if ($response[0] == "ffa") {
         echo "Time to pick a chest!" . PHP_EOL;
         $accountData["chest"] = mt_rand(1,3);
+        fwrite($fh, "choosing chest " . $accountData["chest"] . PHP_EOL);
         $chestRequest = $client->get($baseUrl.$chestUrl, [
             "query" => $accountData,
             "headers" => $headers
