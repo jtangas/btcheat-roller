@@ -16,3 +16,8 @@
 - run this application in the background to utilize those mined spins
 - ???
 - profit
+
+#### If you find this helpful
+
+Your donations are always welcome:
+- btc: 1FvVWwVQ9poDAzvyWwVuQSdE1sADk7i8ow
